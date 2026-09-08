@@ -5,6 +5,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,3 +36,17 @@ jobs:
           name: brokenscript-jar
           path: build/libs/*.jar
           if-no-files-found: error
+
+      # Commits the built JAR into dist/ on the same branch so it can be
+      # downloaded straight from the repository ([skip ci] avoids loops).
+      - name: Commit JAR to dist/
+        if: github.event_name == 'push'
+        run: |
+          mkdir -p dist
+          cp build/libs/*.jar dist/
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist
+          git diff --cached --quiet && echo "no JAR changes" && exit 0
+          git commit -m "dist: built mod JAR [skip ci]"
+          git push
