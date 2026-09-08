@@ -10,7 +10,7 @@ Mod ID: `brokenscript` · Package: `net.brokenscript.mod` · Java 21.
 ## Building & Running
 
 ```bash
-./gradlew build          # produces build/libs/brokenscript-3.0.0.jar
+./gradlew build          # produces build/libs/brokenscript-3.1.0.jar
 ./gradlew runClient      # dev client
 ./gradlew runServer      # dev dedicated server
 ```
@@ -86,6 +86,29 @@ Feed the **Terminal Block** 8 **Source Code Fragments** (dropped by sealed
 stage-3/4 entities, or in vault chests). The CLI screen opens; enter the 5-part
 repair sequence (`help` lists it) while the terminal spawns wave assaults.
 Complete `commit fixed_the_script` and the infection is purged **permanently**.
+
+### 5. Story — USER_0's recovered pages (v3.1)
+A previous player left a session log behind. Nine "recovered pages" (written
+books titled `PAGE_0N.log`, author `USER_0`) slip into your inventory as the
+infection grows — each unlocks strictly **in order** at its own threshold
+(0 / 10 / 25 / 40 / 55 / 70 / 85%), plus two event-gated chapters (terminal
+boot → `SESSION.log`, full repair → the epilogue). Pages only ever reference
+phenomena you have already seen, so nothing is spoiled early; the on-disk
+echoes in `LOGS_UNCANNY/` deliberately withhold the text.
+
+### Playtest command (v3.1)
+`/brokenscript` (permission level 2):
+- `status` — infection %, stage, story progress, repaired flag
+- `infection set <0..100>` / `infection add <delta>`
+- `story next` (force next chapter) / `story give` (re-give unlocked pages)
+- `event` — roll one scripted event on yourself right now
+- `reset` — infection to 0 + clear repaired flag (story progress kept)
+
+Other v3.1 balance changes: first in-game day is a grace period (no events
+below 5% infection), horror entities self-vanish after ~5 minutes, and stages
+gained new events (door toggles, distant knocks, watcher signs, false
+mineshafts, torch-cascade blackouts, phantom chat, darkness seizures, fake
+system countdowns).
 
 ---
 

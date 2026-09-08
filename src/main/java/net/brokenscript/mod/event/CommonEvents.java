@@ -37,11 +37,19 @@ public final class CommonEvents {
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
         HorrorDirector.reset();
+        net.brokenscript.mod.story.StoryManager.reset();
     }
 
     @SubscribeEvent
     public static void onServerStopped(ServerStoppedEvent event) {
         HorrorDirector.reset();
+        net.brokenscript.mod.story.StoryManager.reset();
+    }
+
+    /** Registers the /brokenscript playtest & debug command. */
+    @SubscribeEvent
+    public static void onRegisterCommands(net.neoforged.neoforge.event.RegisterCommandsEvent event) {
+        net.brokenscript.mod.command.BrokenScriptCommand.register(event.getDispatcher());
     }
 
     /** Late-joining players immediately learn the world's infection level. */

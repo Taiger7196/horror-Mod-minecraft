@@ -104,6 +104,10 @@ public class TerminalBlockEntity extends BlockEntity {
     public void boot() {
         this.booted = true;
         setChanged();
+        if (level instanceof ServerLevel serverLevel) {
+            // USER_0's session is restored - the story catches up.
+            net.brokenscript.mod.story.StoryManager.onTerminalBooted(serverLevel.getServer());
+        }
     }
 
     public void beginSession(ServerPlayer player) {
@@ -141,6 +145,8 @@ public class TerminalBlockEntity extends BlockEntity {
             serverLevel.getServer().getPlayerList().broadcastSystemMessage(
                     Component.literal("[SYSTEM] script integrity restored. goodbye.")
                             .withStyle(ChatFormatting.GREEN), false);
+            // The epilogue: USER_0's last page, and the reveal.
+            net.brokenscript.mod.story.StoryManager.onScriptRepaired(serverLevel.getServer());
         }
         return response;
     }

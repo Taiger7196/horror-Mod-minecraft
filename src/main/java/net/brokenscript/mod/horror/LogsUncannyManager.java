@@ -71,6 +71,35 @@ public final class LogsUncannyManager {
         });
     }
 
+    /**
+     * Story echo: whenever a chapter of USER_0's log is delivered in-game, a
+     * matching artifact appears on the real disk - the same page, "recovered".
+     * Only ever contains already-unlocked chapters, so nothing leaks early.
+     */
+    public static void writeStoryEcho(net.brokenscript.mod.story.StoryChapter chapter) {
+        if (!Config.ALLOW_UNCANNY_LOGS.getAsBoolean()) {
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== recovered session page: ").append(chapter.bookTitle()).append(" ===\n");
+        sb.append("=== author: USER_0 | do not redistribute ===\n\n");
+        for (int i = 0; i < chapter.pageCount(); i++) {
+            sb.append("[").append(chapter.pageKey(i)).append("]\n");
+        }
+        sb.append("\n(text withheld from plain files. read it where you found it.)\n");
+        String body = sb.toString();
+        Util.ioPool().execute(() -> {
+            try {
+                Path dir = FMLPaths.GAMEDIR.get().resolve("LOGS_UNCANNY");
+                Files.createDirectories(dir);
+                Files.writeString(dir.resolve(chapter.bookTitle() + ".txt"), body, StandardCharsets.UTF_8,
+                        StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            } catch (IOException e) {
+                BrokenScriptMod.LOGGER.debug("LOGS_UNCANNY story echo failed (ignored): {}", e.toString());
+            }
+        });
+    }
+
     /** Appends a line to the rolling THEY_ARE_HERE.txt journal on stage escalation. */
     public static void appendEscalation(InfectionStage newStage, double level) {
         if (!Config.ALLOW_UNCANNY_LOGS.getAsBoolean()) {

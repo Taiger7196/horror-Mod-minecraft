@@ -60,12 +60,25 @@ public final class HorrorDirector {
 
         advanceInfection(server, data);
         broadcastStage(server, data);
+        net.brokenscript.mod.story.StoryManager.tick(server, data);
 
         InfectionStage stage = data.stage();
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             if (!player.isSpectator() && !player.isCreative()) {
                 maybeRunEventFor(player, stage, data);
             }
+        }
+    }
+
+    /** Playtest hook for {@code /brokenscript event}: bypasses cooldown and odds. */
+    public static void forceEventFor(ServerPlayer player) {
+        InfectionSavedData data = InfectionSavedData.get(player.getServer());
+        RandomSource random = player.level().random;
+        switch (data.stage()) {
+            case DORMANT -> runStage1(player, random);
+            case WATCHING -> runStage2(player, random, data);
+            case HUNTING -> runStage3(player, random, data);
+            case COLLAPSE -> runStage4(player, random, data);
         }
     }
 
@@ -130,6 +143,11 @@ public final class HorrorDirector {
 
     private static void maybeRunEventFor(ServerPlayer player, InfectionStage stage, InfectionSavedData data) {
         long gameTime = player.level().getGameTime();
+        // Grace period: the first in-game day of a fresh world stays quiet.
+        // Horror lands harder after the player has settled in.
+        if (gameTime < 24000L && data.level() < 5.0D) {
+            return;
+        }
         long readyAt = nextEventAt.getOrDefault(player.getUUID(), 0L);
         if (gameTime < readyAt) {
             return;
@@ -153,7 +171,7 @@ public final class HorrorDirector {
     /** Stage 1: nothing you could screenshot. Sounds behind you, at most. */
     private static void runStage1(ServerPlayer player, RandomSource random) {
         ServerLevel level = (ServerLevel) player.level();
-        switch (random.nextInt(3)) {
+        switch (random.nextInt(5)) {
             case 0 -> {
                 // A footstep-ish stone sound just behind the player.
                 BlockPos behind = BlockPos.containing(
@@ -163,47 +181,178 @@ public final class HorrorDirector {
             }
             case 1 -> level.playSound(null, player.blockPosition(), ModSounds.WHISPER.get(),
                     SoundSource.AMBIENT, 0.3F, 0.8F + random.nextFloat() * 0.4F);
-            default -> {
+            case 2 -> {
                 // Fake cave ambience on the surface, in daylight. Wrong on purpose.
                 level.playSound(null, player.blockPosition().above(8),
                         net.minecraft.sounds.SoundEvents.AMBIENT_CAVE.value(),
                         SoundSource.AMBIENT, 0.7F, 1.0F);
             }
+            case 3 -> {
+                // A door somewhere nearby opens. Nobody opened it.
+                toggleNearbyDoor(level, player.blockPosition(), random);
+            }
+            default -> {
+                // Distant block-break knocks, three of them, evenly spaced.
+                BlockPos at = randomOffsetPos(player.blockPosition(), random, 14, 3);
+                level.playSound(null, at, net.minecraft.sounds.SoundEvents.WOOD_HIT,
+                        SoundSource.AMBIENT, 0.9F, 0.6F);
+            }
         }
+    }
+
+    /** Finds a player-placed door within ~12 blocks and toggles it. */
+    private static void toggleNearbyDoor(ServerLevel level, BlockPos center, RandomSource random) {
+        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-12, -3, -12), center.offset(12, 3, 12))) {
+            var state = level.getBlockState(pos);
+            if (state.getBlock() instanceof net.minecraft.world.level.block.DoorBlock door
+                    && state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.OPEN)) {
+                boolean open = state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.OPEN);
+                door.setOpen(null, level, state, pos, !open);
+                return;
+            }
+        }
+    }
+
+    private static BlockPos randomOffsetPos(BlockPos origin, RandomSource random, int horizontal, int vertical) {
+        return origin.offset(
+                random.nextInt(horizontal * 2 + 1) - horizontal,
+                random.nextInt(vertical * 2 + 1) - vertical,
+                random.nextInt(horizontal * 2 + 1) - horizontal);
     }
 
     /** Stage 2: spectators at the edge of vision, phantom players, first files. */
     private static void runStage2(ServerPlayer player, RandomSource random, InfectionSavedData data) {
         ServerLevel level = (ServerLevel) player.level();
-        switch (random.nextInt(4)) {
+        switch (random.nextInt(6)) {
             case 0 -> spawnDistantSpectator(level, player, random,
                     random.nextBoolean() ? ModEntities.NULL.get() : ModEntities.ENTITY_505.get());
             case 1 -> PacketDistributor.sendToPlayer(player, new FakeSystemMessagePayload(
                     CorruptedNames.randomOf(CorruptedNames.PHANTOM_PLAYERS, random), random.nextBoolean()));
             case 2 -> LogsUncannyManager.writeCrypticFile(
                     player.getGameProfile().getName(), player.blockPosition(), data.stage(), random);
+            case 3 -> placeWatcherSign(level, player, random);
+            case 4 -> {
+                // Excavation marks: a neat 1x2 tunnel entrance appears nearby,
+                // 3 blocks deep, torch at the mouth. Somebody has been digging.
+                digFalseMineshaft(level, player.blockPosition(), random);
+            }
             default -> stripLeavesNear(level, player.blockPosition(), random);
+        }
+    }
+
+    /**
+     * A sign appears behind the player with a short message. The text pool is
+     * mundane-creepy on purpose - it reads like USER_0 leaving breadcrumbs.
+     */
+    private static void placeWatcherSign(ServerLevel level, ServerPlayer player, RandomSource random) {
+        String[] lines = {
+                "i was here first", "check your logs", "it counts your steps",
+                "USER_0 was here", "dont dig down", "8 pieces. hurry"
+        };
+        for (int attempts = 0; attempts < 12; attempts++) {
+            BlockPos pos = randomOffsetPos(player.blockPosition(), random, 8, 2);
+            var toPos = net.minecraft.world.phys.Vec3.atCenterOf(pos)
+                    .subtract(player.getEyePosition()).normalize();
+            boolean behind = player.getViewVector(1.0F).dot(toPos) < 0.0D;
+            if (behind && level.getBlockState(pos).isAir()
+                    && level.getBlockState(pos.below()).isSolidRender()) {
+                level.setBlockAndUpdate(pos, Blocks.OAK_SIGN.defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.ROTATION_16,
+                                random.nextInt(16)));
+                if (level.getBlockEntity(pos) instanceof net.minecraft.world.level.block.entity.SignBlockEntity sign) {
+                    String text = lines[random.nextInt(lines.length)];
+                    sign.setText(sign.getText(true).setMessage(1,
+                            net.minecraft.network.chat.Component.literal(text)), true);
+                    sign.setChanged();
+                }
+                return;
+            }
+        }
+    }
+
+    /** A short, torch-lit, obviously hand-dug tunnel that nobody dug. */
+    private static void digFalseMineshaft(ServerLevel level, BlockPos center, RandomSource random) {
+        net.minecraft.core.Direction dir = net.minecraft.core.Direction.Plane.HORIZONTAL.getRandomDirection(random);
+        BlockPos mouth = level.getHeightmapPos(
+                net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                randomOffsetPos(center, random, 20, 0));
+        for (int i = 0; i < 4; i++) {
+            BlockPos step = mouth.relative(dir, i).below(i > 1 ? 1 : 0);
+            var floor = level.getBlockState(step.below());
+            if (floor.isAir() || floor.getDestroySpeed(level, step.below()) < 0.0F) {
+                return; // don't carve into cliffs or bedrock
+            }
+            level.removeBlock(step, false);
+            level.removeBlock(step.above(), false);
+        }
+        BlockPos torchPos = mouth.relative(dir.getOpposite());
+        if (level.getBlockState(torchPos).isAir() && level.getBlockState(torchPos.below()).isSolidRender()) {
+            level.setBlockAndUpdate(torchPos, Blocks.TORCH.defaultBlockState());
         }
     }
 
     /** Stage 3: they stop hiding. */
     private static void runStage3(ServerPlayer player, RandomSource random, InfectionSavedData data) {
         ServerLevel level = (ServerLevel) player.level();
-        switch (random.nextInt(5)) {
+        switch (random.nextInt(7)) {
             case 0 -> spawnNear(level, player, random, ModEntities.HEROBRINE.get(), 20, 40);
             case 1 -> spawnNear(level, player, random, ModEntities.ENTITY_303.get(), 16, 30);
             case 2 -> spawnNear(level, player, random, ModEntities.LICK.get(), 16, 30);
             case 3 -> PacketDistributor.sendToPlayer(player,
                     new GlitchEffectPayload(GlitchEffectPayload.Kind.UI_SCRAMBLE, 100 + random.nextInt(100)));
+            case 4 -> cascadeTorchFailure(level, player.blockPosition(), random);
+            case 5 -> {
+                // A phantom "player" speaks. Once. It knows your name.
+                PacketDistributor.sendToPlayer(player, new FakeSystemMessagePayload(
+                        CorruptedNames.randomOf(CorruptedNames.PHANTOM_PLAYERS, random), true));
+                player.sendSystemMessage(net.minecraft.network.chat.Component.literal(
+                                "<" + CorruptedNames.randomOf(CorruptedNames.PHANTOM_PLAYERS, random) + "> "
+                                        + phantomLine(player, random))
+                        .withStyle(net.minecraft.ChatFormatting.WHITE));
+            }
             default -> LogsUncannyManager.writeCrypticFile(
                     player.getGameProfile().getName(), player.blockPosition(), data.stage(), random);
+        }
+    }
+
+    private static String phantomLine(ServerPlayer player, RandomSource random) {
+        String name = player.getGameProfile().getName();
+        String[] lines = {
+                "hi " + name, name + "?", "i can see your base from here",
+                "nice torches. counted them.", "USER_0 says hi", "why did you stop moving"
+        };
+        return lines[random.nextInt(lines.length)];
+    }
+
+    /** Torches around the player die one by one, nearest last. Pure dread. */
+    private static void cascadeTorchFailure(ServerLevel level, BlockPos center, RandomSource random) {
+        java.util.List<BlockPos> torches = new java.util.ArrayList<>();
+        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-10, -3, -10), center.offset(10, 3, 10))) {
+            var state = level.getBlockState(pos);
+            if (state.is(Blocks.TORCH) || state.is(Blocks.WALL_TORCH)) {
+                torches.add(pos.immutable());
+            }
+        }
+        if (torches.isEmpty()) {
+            return;
+        }
+        // Farthest first: darkness closes in on the player.
+        torches.sort(java.util.Comparator.comparingDouble(p -> -p.distSqr(center)));
+        int budget = Math.min(torches.size(), 6);
+        for (int i = 0; i < budget; i++) {
+            BlockPos pos = torches.get(i);
+            // Schedule staggered removal via block ticks is overkill; remove now
+            // with a fizz each - the sound sequence sells the cascade.
+            level.removeBlock(pos, false);
+            level.playSound(null, pos, net.minecraft.sounds.SoundEvents.FIRE_EXTINGUISH,
+                    SoundSource.BLOCKS, 0.5F, 0.8F + random.nextFloat() * 0.3F);
         }
     }
 
     /** Stage 4: the world itself gives up. */
     private static void runStage4(ServerPlayer player, RandomSource random, InfectionSavedData data) {
         ServerLevel level = (ServerLevel) player.level();
-        switch (random.nextInt(5)) {
+        switch (random.nextInt(7)) {
             case 0 -> spawnNear(level, player, random, ModEntities.THE_REAPER.get(), 24, 48);
             case 1 -> {
                 if (Config.ALLOW_INPUT_GLITCHES.getAsBoolean()) {
@@ -218,6 +367,22 @@ public final class HorrorDirector {
                 }
             }
             case 3 -> degradeWorldAround(level, player.blockPosition(), random);
+            case 4 -> {
+                // The lights go out INSIDE your eyes. Ten seconds of darkness
+                // with a heartbeat that is not yours.
+                player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.DARKNESS, 200, 0, false, false, false));
+                level.playSound(null, player.blockPosition(), ModSounds.HEARTBEAT.get(),
+                        SoundSource.AMBIENT, 1.0F, 0.5F);
+            }
+            case 5 -> {
+                // The system starts counting down to nothing in particular.
+                int from = 3 + random.nextInt(5);
+                player.sendSystemMessage(net.minecraft.network.chat.Component.literal(
+                                "[SYSTEM] world integrity check in " + from + "...")
+                        .withStyle(net.minecraft.ChatFormatting.DARK_RED));
+                // No follow-up ever arrives. That is the event.
+            }
             default -> LogsUncannyManager.writeCrypticFile(
                     player.getGameProfile().getName(), player.blockPosition(), data.stage(), random);
         }

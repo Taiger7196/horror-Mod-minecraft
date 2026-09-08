@@ -25,5 +25,42 @@
   "brokenscript.configuration.allowUncannyLogs": "Allow LOGS_UNCANNY files",
   "brokenscript.configuration.allowFakeCrashOverlays": "Allow fake crash overlays",
   "brokenscript.configuration.allowInputGlitches": "Allow input glitches",
-  "brokenscript.configuration.allowWorldDegradation": "Allow world degradation"
+  "brokenscript.configuration.allowWorldDegradation": "Allow world degradation",
+
+  "brokenscript.story.boot.whisper": "(a page slips into your inventory. the paper is cold.)",
+  "brokenscript.story.boot.p1": "PAGE_01.log — recovered\n\nday 1.\n\nnew world, same seed as my old one. i checked three times. same seed.\n\nbut my house isn't here. my dog isn't here.\n\nthe game says this world was created today.\n\nit's lying.",
+  "brokenscript.story.boot.p2": "if you're reading this, the world let you in, which means it's still hungry.\n\nkeep playing. act normal.\n\ndon't let it know you found my pages.\n\n— USER_0",
+
+  "brokenscript.story.anomalies.whisper": "(another page. it was under your other items. it wasn't, a second ago.)",
+  "brokenscript.story.anomalies.p1": "PAGE_02.log — recovered\n\nday 9.\n\nsounds first. cave noises with the sun up. footsteps that stop when i stop.\n\ni told myself it was the engine. sounds are just... sounds.\n\nthen my front door was open this morning.\n\ni sleep with it closed. i always sleep with it closed.",
+  "brokenscript.story.anomalies.p2": "i started keeping this log OUTSIDE the game. txt files, on my real drive.\n\nyesterday one of them had a line i didn't write:\n\n\"we can read these too\"\n\n— USER_0",
+
+  "brokenscript.story.watched.whisper": "(the page is damp. you are indoors.)",
+  "brokenscript.story.watched.p1": "PAGE_03.log — recovered\n\nday 17.\n\ni play alone. singleplayer. offline.\n\ntonight the tab list had two names in it.\n\nmine, and one that was just... wrong. 999 ping. you can't have 999 ping in singleplayer. you can't have ANYONE in singleplayer.\n\nit stayed for six minutes. i timed it. then 'left the game'.\n\nnothing joined. nothing left. but something was LISTED.",
+  "brokenscript.story.watched.p2": "i see figures at render distance now. always at the edge, never closer.\n\nwhen i walk toward them they're gone before i arrive. not despawned. GONE, like they were never rendered.\n\nthey're not mobs. mobs want to reach you.\n\nthese want you to reach THEM.\n\n— USER_0",
+
+  "brokenscript.story.processes.whisper": "(you did not pick this page up. it is in your hand anyway.)",
+  "brokenscript.story.processes.p1": "PAGE_04.log — recovered\n\nday 26.\n\ni got one of them to stay still long enough. screenshot, zoom.\n\nits nametag wasn't a name. it was a process id.\n\nthey're not ghosts. they're PROCESSES. leftover routines from something that used to run underneath the game. the white-eyed one is the scheduler. the dark one kills lights because light means render calls, and render calls mean being SEEN by the system.\n\nthey're hiding from something too.",
+  "brokenscript.story.processes.p2": "found the word for what happened here, carved inside a tree. INSIDE. the bark was whole:\n\n\"THE SCRIPT BROKE ON COMMIT 303\"\n\ni think this world is a build that never passed its tests.\n\nand we're the tests.\n\n— USER_0",
+
+  "brokenscript.story.the_vault.whisper": "(coordinates bleed through the back of the page. smudged. deliberately.)",
+  "brokenscript.story.the_vault.p1": "PAGE_05.log — recovered\n\nday 34.\n\nthere's a room under the world. deep. below zero, in the old stone.\n\nobsidian walls. lights that still work. a black block in the middle that HUMS when you're near it, like a fan in a machine that never shut down.\n\nit's a console. the world's own console.\n\nthe processes won't go near it. that's how you know it matters.",
+  "brokenscript.story.the_vault.p2": "i smudged the coordinates on purpose. if i write them clean, IT reads them too, and it will bury the room deeper.\n\nfind it the honest way: go down. follow the cold. the compass of this place is fear — the needle points where you least want to walk.\n\n— USER_0",
+
+  "brokenscript.story.fragments.whisper": "(this page is heavier than paper should be.)",
+  "brokenscript.story.fragments.p1": "PAGE_06.log — recovered\n\nday 41.\n\nthe console wants EIGHT pieces of the original source. eight fragments.\n\nthe processes carry them. it's why they exist — they each swallowed a piece of the script when it shattered, and the world can't finish breaking while the pieces are still... digesting.\n\nyou have to take the pieces back. you have to SEAL them.\n\nthey will not enjoy that.",
+  "brokenscript.story.fragments.p2": "some pieces are still lying in the vault, in the old chests, from whoever tried before me.\n\nthere was someone before me. i found their boots.\n\ni never found the rest of them.\n\n— USER_0",
+
+  "brokenscript.story.last_log.whisper": "(the handwriting is different on this one. rushed.)",
+  "brokenscript.story.last_log.p1": "PAGE_07.log — recovered\n\nday 4̸̡7.\n\nworld's coming apart. grass turns to dry dirt where i walk. my W key walks me BACKWARD when it wants to. the game 'crashed' twice tonight and both times the crash screen was still running the game behind the text. i could hear my footsteps IN the crash report.\n\nthere's a tall one now. it doesn't chase. it DRIFTS. walls don't mean anything to it.\n\nlight. it hates clean light. build the altars. glowstone, a soul lantern, old obsidian. holy light, my grandmother would've called it.",
+  "brokenscript.story.last_log.p2": "i have six fragments. two more. the terminal is humming louder, i think it knows i'm clo—\n\n[page ends mid-word. the rest is fingerprints.]",
+
+  "brokenscript.story.session_restored.whisper": "(the terminal exhales. a page prints out of nowhere.)",
+  "brokenscript.story.session_restored.p1": "SESSION.log — restored\n\n> USER_0 last seen: [NO DATA]\n> USER_0 disconnect reason: [NO DATA]\n> USER_0 playtime: 47 days\n\n> note found pinned under the keyboard:\n\n\"it was never trying to kill me.\nit was trying to keep me.\na broken script can't end. it just loops.\nwhoever you are: don't avenge me. COMPILE me.\nfinish the repair. let the loop close.\"",
+  "brokenscript.story.session_restored.p2": "> the terminal accepts your credentials.\n> you are logged in as: USER_0\n\n[you never typed a username.]",
+
+  "brokenscript.story.epilogue.whisper": "(everything is very quiet. one last page, folded neatly.)",
+  "brokenscript.story.epilogue.p1": "EPILOGUE — commit fixed_the_script\n\nbuild status: PASSED\ntests: 1 of 1\n\nthe world exhales. the grass grows back where you walk. the doors stay how you leave them. the tab list holds one name, and it is yours.",
+  "brokenscript.story.epilogue.p2": "somewhere under the floor of the world, a process terminates gracefully for the first time in its life.\n\nit dreams, briefly, of a house, and a dog, and day 1.\n\nthank you, player.\n\n— U̶S̶E̶R̶_̶0̶  user_1",
+  "brokenscript.story.epilogue.p3": "P.S.\n\nthe seed of this world will work fine now.\n\nbut if you ever make a NEW world, and the game says it was created today —\n\ncheck the logs folder anyway.\n\nfor me."
 }

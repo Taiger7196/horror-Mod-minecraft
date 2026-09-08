@@ -1,0 +1,66 @@
+{
+  "itemGroup.brokenscript": "Broken Script 3.0",
+
+  "block.brokenscript.terminal_block": "Blocco Terminale",
+  "block.brokenscript.purification_altar": "Altare di Purificazione",
+  "item.brokenscript.source_fragment": "Frammento di Codice Sorgente",
+
+  "entity.brokenscript.herobrine": "Herobrine",
+  "entity.brokenscript.null": "Null",
+  "entity.brokenscript.entity_303": "Entity 303",
+  "entity.brokenscript.entity_505": "Entity 505",
+  "entity.brokenscript.lick": "Lick",
+  "entity.brokenscript.the_reaper": "The Reaper",
+
+  "death.attack.brokenscript.reaper": "%1$s è stato disfatto",
+  "death.attack.brokenscript.reaper.player": "%1$s è stato disfatto mentre %2$s guardava",
+
+  "subtitles.brokenscript.whisper": "Qualcosa sussurra",
+  "subtitles.brokenscript.heartbeat": "Un battito che non è il tuo",
+  "subtitles.brokenscript.static": "Statica",
+
+  "brokenscript.configuration.enabled": "Interruttore principale",
+  "brokenscript.configuration.infectionRateMultiplier": "Moltiplicatore velocità infezione",
+  "brokenscript.configuration.minEventIntervalSeconds": "Intervallo minimo eventi (s)",
+  "brokenscript.configuration.allowUncannyLogs": "Consenti file LOGS_UNCANNY",
+  "brokenscript.configuration.allowFakeCrashOverlays": "Consenti finti crash",
+  "brokenscript.configuration.allowInputGlitches": "Consenti glitch dei comandi",
+  "brokenscript.configuration.allowWorldDegradation": "Consenti degradazione del mondo",
+
+  "brokenscript.story.boot.whisper": "(una pagina scivola nel tuo inventario. la carta è fredda.)",
+  "brokenscript.story.boot.p1": "PAGE_01.log — recuperato\n\ngiorno 1.\n\nmondo nuovo, stesso seed del mio vecchio mondo. ho controllato tre volte. stesso seed.\n\nma la mia casa non c'è. il mio cane non c'è.\n\nil gioco dice che questo mondo è stato creato oggi.\n\nsta mentendo.",
+  "brokenscript.story.boot.p2": "se stai leggendo questa pagina, il mondo ti ha fatto entrare, e vuol dire che ha ancora fame.\n\ncontinua a giocare. comportati normalmente.\n\nnon fargli capire che hai trovato le mie pagine.\n\n— USER_0",
+
+  "brokenscript.story.anomalies.whisper": "(un'altra pagina. era sotto gli altri oggetti. un secondo fa non c'era.)",
+  "brokenscript.story.anomalies.p1": "PAGE_02.log — recuperato\n\ngiorno 9.\n\nprima i suoni. rumori di caverna col sole alto. passi che si fermano quando mi fermo io.\n\nmi sono detto che era il motore di gioco. i suoni sono solo... suoni.\n\npoi stamattina la porta di casa era aperta.\n\ndormo con la porta chiusa. dormo SEMPRE con la porta chiusa.",
+  "brokenscript.story.anomalies.p2": "ho iniziato a tenere questo diario FUORI dal gioco. file txt, sul mio disco vero.\n\nieri in uno di quei file c'era una riga che non ho scritto io:\n\n\"possiamo leggere anche questi\"\n\n— USER_0",
+
+  "brokenscript.story.watched.whisper": "(la pagina è umida. tu sei al chiuso.)",
+  "brokenscript.story.watched.p1": "PAGE_03.log — recuperato\n\ngiorno 17.\n\ngioco da solo. singleplayer. offline.\n\nstanotte nella tab list c'erano due nomi.\n\nil mio, e uno... sbagliato. ping 999. non puoi avere ping 999 in singleplayer. non puoi avere NESSUNO in singleplayer.\n\nè rimasto sei minuti. li ho cronometrati. poi 'ha abbandonato la partita'.\n\nnon è entrato niente. non è uscito niente. ma qualcosa era IN LISTA.",
+  "brokenscript.story.watched.p2": "adesso vedo figure al limite della distanza di rendering. sempre al bordo, mai più vicine.\n\nse cammino verso di loro spariscono prima che io arrivi. non despawnate. SPARITE, come se non fossero mai state renderizzate.\n\nnon sono mob. i mob vogliono raggiungerti.\n\nqueste vogliono che sia TU a raggiungere LORO.\n\n— USER_0",
+
+  "brokenscript.story.processes.whisper": "(questa pagina non l'hai raccolta tu. eppure è nella tua mano.)",
+  "brokenscript.story.processes.p1": "PAGE_04.log — recuperato\n\ngiorno 26.\n\nsono riuscito a farne stare fermo uno abbastanza a lungo. screenshot, zoom.\n\nla sua targhetta non era un nome. era un id di processo.\n\nnon sono fantasmi. sono PROCESSI. routine rimaste in piedi di qualcosa che girava sotto il gioco. quello con gli occhi bianchi è lo scheduler. quello scuro spegne le luci perché la luce significa chiamate di rendering, e le chiamate di rendering significano essere VISTI dal sistema.\n\nanche loro si nascondono da qualcosa.",
+  "brokenscript.story.processes.p2": "ho trovato la parola per quello che è successo qui, incisa dentro un albero. DENTRO. la corteccia era intatta:\n\n\"LO SCRIPT SI È ROTTO AL COMMIT 303\"\n\ncredo che questo mondo sia una build che non ha mai passato i test.\n\ne i test siamo noi.\n\n— USER_0",
+
+  "brokenscript.story.the_vault.whisper": "(delle coordinate traspaiono dal retro della pagina. sbavate. di proposito.)",
+  "brokenscript.story.the_vault.p1": "PAGE_05.log — recuperato\n\ngiorno 34.\n\nc'è una stanza sotto il mondo. in profondità. sotto lo zero, nella pietra vecchia.\n\nmura di ossidiana. luci che funzionano ancora. un blocco nero al centro che RONZA quando ti avvicini, come una ventola in una macchina che non si è mai spenta.\n\nè una console. la console del mondo stesso.\n\ni processi non le si avvicinano. è così che capisci che è importante.",
+  "brokenscript.story.the_vault.p2": "ho sbavato le coordinate apposta. se le scrivo in chiaro, le legge anche LUI, e seppellirà la stanza più in fondo.\n\ntrovala nel modo onesto: scendi. segui il freddo. la bussola di questo posto è la paura — l'ago punta dove hai meno voglia di camminare.\n\n— USER_0",
+
+  "brokenscript.story.fragments.whisper": "(questa pagina pesa più di quanto dovrebbe pesare la carta.)",
+  "brokenscript.story.fragments.p1": "PAGE_06.log — recuperato\n\ngiorno 41.\n\nla console vuole OTTO pezzi del sorgente originale. otto frammenti.\n\nli portano i processi. è per questo che esistono — ognuno ha ingoiato un pezzo dello script quando si è frantumato, e il mondo non può finire di rompersi finché i pezzi sono ancora... in digestione.\n\ndevi riprenderti i pezzi. devi SIGILLARLI.\n\nnon la prenderanno bene.",
+  "brokenscript.story.fragments.p2": "alcuni pezzi sono ancora lì nel vault, nelle vecchie casse, di chi ci ha provato prima di me.\n\nc'è stato qualcuno prima di me. ho trovato i suoi stivali.\n\nil resto non l'ho mai trovato.\n\n— USER_0",
+
+  "brokenscript.story.last_log.whisper": "(su questa la calligrafia è diversa. frettolosa.)",
+  "brokenscript.story.last_log.p1": "PAGE_07.log — recuperato\n\ngiorno 4̸̡7.\n\nil mondo si sta sfaldando. l'erba diventa terra secca dove cammino. il tasto W mi fa camminare ALL'INDIETRO quando ne ha voglia. il gioco è 'crashato' due volte stanotte, e tutte e due le volte dietro la schermata di crash il gioco stava ancora girando. sentivo i miei passi DENTRO il crash report.\n\nadesso ce n'è uno alto. non insegue. FLUTTUA. i muri per lui non significano niente.\n\nla luce. odia la luce pulita. costruisci gli altari. luminite, una lanterna delle anime, ossidiana vecchia. luce santa, l'avrebbe chiamata mia nonna.",
+  "brokenscript.story.last_log.p2": "ho sei frammenti. ancora due. il terminale ronza più forte, credo che sappia che sono vici—\n\n[la pagina si interrompe a metà parola. il resto sono impronte.]",
+
+  "brokenscript.story.session_restored.whisper": "(il terminale espira. una pagina si stampa dal nulla.)",
+  "brokenscript.story.session_restored.p1": "SESSION.log — ripristinato\n\n> USER_0 ultimo accesso: [NESSUN DATO]\n> USER_0 motivo disconnessione: [NESSUN DATO]\n> USER_0 tempo di gioco: 47 giorni\n\n> nota trovata incastrata sotto la tastiera:\n\n\"non ha mai provato a uccidermi.\nprovava a TENERMI.\nuno script rotto non può finire. può solo andare in loop.\nchiunque tu sia: non vendicarmi. COMPILAMI.\ncompleta la riparazione. lascia che il loop si chiuda.\"",
+  "brokenscript.story.session_restored.p2": "> il terminale accetta le tue credenziali.\n> accesso eseguito come: USER_0\n\n[tu non hai mai digitato un nome utente.]",
+
+  "brokenscript.story.epilogue.whisper": "(tutto è molto silenzioso. un'ultima pagina, piegata con cura.)",
+  "brokenscript.story.epilogue.p1": "EPILOGO — commit fixed_the_script\n\nstato build: PASSED\ntest: 1 su 1\n\nil mondo espira. l'erba ricresce dove cammini. le porte restano come le lasci. la tab list contiene un solo nome, ed è il tuo.",
+  "brokenscript.story.epilogue.p2": "da qualche parte sotto il pavimento del mondo, un processo termina con grazia per la prima volta nella sua vita.\n\nsogna, per un attimo, una casa, e un cane, e il giorno 1.\n\ngrazie, giocatore.\n\n— U̶S̶E̶R̶_̶0̶  user_1",
+  "brokenscript.story.epilogue.p3": "P.S.\n\nil seed di questo mondo adesso funzionerà bene.\n\nma se un giorno crei un mondo NUOVO, e il gioco dice che è stato creato oggi —\n\ncontrolla comunque la cartella dei log.\n\nper me."
+}

@@ -22,9 +22,26 @@ import net.minecraft.world.level.Level;
  */
 public abstract class AbstractHorrorEntity extends PathfinderMob {
 
+    /**
+     * Playtest fix: since {@link #removeWhenFarAway} is false, these entities
+     * would otherwise accumulate forever. Every haunting is a visit: after
+     * this many ticks (5 min) the entity quietly vanishes on its own terms.
+     * The Reaper overrides this with a longer stay.
+     */
+    protected int maxLifetimeTicks = 20 * 60 * 5;
+    private int lifetime = 0;
+
     protected AbstractHorrorEntity(EntityType<? extends PathfinderMob> type, Level level) {
         super(type, level);
         this.xpReward = 0;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.level().isClientSide && ++lifetime > maxLifetimeTicks) {
+            vanish();
+        }
     }
 
     /** Nearest surviving player within range, or null. */
