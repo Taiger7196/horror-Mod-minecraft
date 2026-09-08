@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g. v3.0.0)"
+        required: true
+        default: "v3.0.0"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build with Gradle
+        run: ./gradlew build --no-daemon
+
+      - name: Create GitHub release with JAR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ github.event.inputs.tag }}"
+          gh release create "$TAG" build/libs/*.jar \
+            --target "${{ github.ref_name }}" \
+            --title "Broken Script 3.0 Fan-Made — $TAG" \
+            --notes "$(cat <<'EOF'
+          Fan-made psychological & meta-horror mod for **Minecraft 1.21.5** (NeoForge 21.5.98+, Java 21).
+
+          ## Installazione
+          1. Installa NeoForge 21.5.98 o superiore per Minecraft 1.21.5
+          2. Copia `brokenscript-3.0.0.jar` nella cartella `mods/`
+          3. Avvia il gioco. Non leggere i file in `LOGS_UNCANNY/`.
+
+          ## Contenuti
+          - Sistema di infezione a 4 stadi (0-100%, salvato nel mondo, arco di 20+ ore)
+          - Entità: Herobrine, Null, Entity 303/505, Lick, The Reaper
+          - Meta-horror: chat/tab-list spoofing (ping 999ms), file .txt reali in LOGS_UNCANNY, inversione W/S, falsi crash, tooltip corrotti
+          - Struttura Terminal Vault + quest finale "Fixing the Script" (CLI con assalti a ondate)
+          - Altari di Purificazione, Croci Maledette, degradazione del mondo
+          - Ogni funzione invasiva è disattivabile da config (`config/brokenscript-common.toml`)
+          EOF
+          )"
