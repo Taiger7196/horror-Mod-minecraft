@@ -19,7 +19,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
  * (registrations); gameplay-time client events live in {@link ClientEvents}.
  */
 @Mod(value = BrokenScriptMod.MODID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = BrokenScriptMod.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = BrokenScriptMod.MODID, value = Dist.CLIENT)
 public final class BrokenScriptClient {
 
     public BrokenScriptClient(ModContainer container) {

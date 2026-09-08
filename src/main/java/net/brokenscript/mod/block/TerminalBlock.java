@@ -78,7 +78,7 @@ public class TerminalBlock extends BaseEntityBlock {
                                 "> INSUFFICIENT DATA. BRING ME "
                                         + (TerminalProtocol.REQUIRED_FRAGMENTS - terminal.getStoredFragments())
                                         + " MORE FRAGMENTS OF " + ModItems.SOURCE_FRAGMENT.get()
-                                        .getDescription().getString().toUpperCase() + ".")
+                                        .getDefaultInstance().getHoverName().getString().toUpperCase() + ".")
                         .withStyle(ChatFormatting.DARK_RED));
             }
             return InteractionResult.CONSUME;
