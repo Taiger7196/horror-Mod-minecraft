@@ -1,0 +1,29 @@
+{
+  "itemGroup.brokenscript": "Broken Script 3.0",
+
+  "block.brokenscript.terminal_block": "Terminal Block",
+  "block.brokenscript.purification_altar": "Purification Altar",
+  "item.brokenscript.source_fragment": "Source Code Fragment",
+
+  "entity.brokenscript.herobrine": "Herobrine",
+  "entity.brokenscript.null": "Null",
+  "entity.brokenscript.entity_303": "Entity 303",
+  "entity.brokenscript.entity_505": "Entity 505",
+  "entity.brokenscript.lick": "Lick",
+  "entity.brokenscript.the_reaper": "The Reaper",
+
+  "death.attack.brokenscript.reaper": "%1$s was unmade",
+  "death.attack.brokenscript.reaper.player": "%1$s was unmade while %2$s watched",
+
+  "subtitles.brokenscript.whisper": "Something whispers",
+  "subtitles.brokenscript.heartbeat": "A heartbeat that is not yours",
+  "subtitles.brokenscript.static": "Static",
+
+  "brokenscript.configuration.enabled": "Master switch",
+  "brokenscript.configuration.infectionRateMultiplier": "Infection rate multiplier",
+  "brokenscript.configuration.minEventIntervalSeconds": "Minimum event interval (s)",
+  "brokenscript.configuration.allowUncannyLogs": "Allow LOGS_UNCANNY files",
+  "brokenscript.configuration.allowFakeCrashOverlays": "Allow fake crash overlays",
+  "brokenscript.configuration.allowInputGlitches": "Allow input glitches",
+  "brokenscript.configuration.allowWorldDegradation": "Allow world degradation"
+}

@@ -1,0 +1,7 @@
+{
+  "type": "brokenscript:terminal_vault",
+  "biomes": "#brokenscript:has_structure/terminal_vault",
+  "step": "underground_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "bury"
+}

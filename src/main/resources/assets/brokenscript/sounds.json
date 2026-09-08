@@ -1,0 +1,22 @@
+{
+  "whisper": {
+    "subtitle": "subtitles.brokenscript.whisper",
+    "sounds": [
+      { "name": "minecraft:ambient.cave", "type": "event", "pitch": 0.5, "volume": 0.6 },
+      { "name": "minecraft:entity.enderman.ambient", "type": "event", "pitch": 0.4, "volume": 0.5 }
+    ]
+  },
+  "heartbeat": {
+    "subtitle": "subtitles.brokenscript.heartbeat",
+    "sounds": [
+      { "name": "minecraft:entity.warden.heartbeat", "type": "event", "pitch": 0.8 }
+    ]
+  },
+  "static": {
+    "subtitle": "subtitles.brokenscript.static",
+    "sounds": [
+      { "name": "minecraft:block.portal.ambient", "type": "event", "pitch": 2.0, "volume": 0.7 },
+      { "name": "minecraft:block.fire.extinguish", "type": "event", "pitch": 0.6, "volume": 0.8 }
+    ]
+  }
+}

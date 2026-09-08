@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "brokenscript:item/terminal_block"
+  }
+}
